@@ -1,0 +1,5 @@
+title: "FCENA-PUCE"
+description: "Página de la FCENA de la PUCE"
+
+baseurl: ""
+# bundle exec jekyll serve --config _config_local.yml

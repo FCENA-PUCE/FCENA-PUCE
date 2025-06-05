@@ -17,18 +17,18 @@ title: Calculadoras Académicas
             <thead>
                 <tr>
                     <th>Actividad</th>
-                    <th>Ordinario (202566)<br><span class="subtitle">20 semanas</span></th>
-                    <th>Extraordinario (202564)<br><span class="subtitle">6 semanas</span></th>
+                    <th>Ordinario<br><span class="subtitle">20 semanas</span></th>
+                    <th>Extraordinario<br><span class="subtitle">6 semanas</span></th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td class="activity-label">Clases 1-1</td>
+                    <td class="activity-label">Clases (factor 1)</td>
                     <td><input type="number" id="clases_1_1_ord" min="0" step="0.5" onchange="calculateAll()"></td>
                     <td><input type="number" id="clases_1_1_ext" min="0" step="0.5" onchange="calculateAll()"></td>
                 </tr>
                 <tr>
-                    <td class="activity-label">Clases 1-0.5</td>
+                    <td class="activity-label">Clases (factor 0.5)</td>
                     <td><input type="number" id="clases_1_05_ord" min="0" step="0.5" onchange="calculateAll()"></td>
                     <td><input type="number" id="clases_1_05_ext" min="0" step="0.5" onchange="calculateAll()"></td>
                 </tr>
@@ -71,59 +71,19 @@ title: Calculadoras Académicas
         </table>
     </div>
     
-    <div class="instructions">
-        <h3>Instrucciones:</h3>
+    <div class="instructions" style="font-size: 0.9em;">
+        <h4>Instrucciones:</h4>
         <ul>
             <li>Ingrese los valores en los campos editables (fondo blanco)</li>
             <li>Los campos calculados (fondo gris) se actualizarán automáticamente</li>
-            <li>Los valores pueden incluir decimales (usar punto como separador)</li>
-            <li>Solo Preparación e Investigación, Vinculación para extraordinario se copian automáticamente del ordinario</li>
-            <li><strong>Período Ordinario:</strong> Octubre, Noviembre, Diciembre y Enero</li>
             <li><strong>Período Extraordinario:</strong> Agosto - Septiembre</li>
-            <li>Los <strong>totales compensados</strong> fuera del rango 39.5 - 40.5 horas se muestran en <span style="color: #dc3545; font-weight: bold;">rojo</span></li>
+            <li><strong>Período Ordinario:</strong> Octubre - Enero</li>
         </ul>
     </div>
 </div>
 
-<!-- Sección para Calculadora de Probabilidades -->
-<div id="calculadora-probabilidades" class="calculator-section" style="display: none;">
-    <h2>Calculadora de probabilidades</h2>
-
-    <div class="container-material">
-        <a href="calc-prob/binomial.html">
-            <div class="item">
-                Distribución Binomial
-            </div>
-        </a>
-        <a href="calc-prob/poisson.html">
-            <div class="item">
-                Distribución de Poisson
-            </div>
-        </a>
-        <a href="calc-prob/exponencial.html">
-            <div class="item">
-                Distribución Exponencial
-            </div>
-        </a>
-        <a href="calc-prob/normal.html">
-            <div class="item">
-                Distribución Normal
-            </div>
-        </a>
-    </div>
-</div>
 
 <script>
-    function showCalculator(calculatorId) {
-        // Ocultar todas las secciones de calculadoras
-        document.querySelectorAll('.calculator-section').forEach(section => {
-            section.style.display = 'none';
-        });
-        
-        // Mostrar la calculadora seleccionada
-        document.getElementById(calculatorId).style.display = 'block';
-    }
-    
     // Mostrar la calculadora de carga académica por defecto
     document.addEventListener('DOMContentLoaded', function() {
         showCalculator('carga-academica');

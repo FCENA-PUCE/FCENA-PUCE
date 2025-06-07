@@ -31,11 +31,16 @@ title: Calculadoras Académicas
                     <td class="activity-label">Clases (factor 0.5)</td>
                     <td><input type="number" id="clases_1_05_ord" min="0" step="0.5" onchange="calculateAll()"></td>
                     <td><input type="number" id="clases_1_05_ext" min="0" step="0.5" onchange="calculateAll()"></td>
-                </tr>
-                <tr class="calculated-row">
+                </tr>                <tr class="calculated-row">
                     <td class="activity-label">Preparación</td>
-                    <td><span id="preparacion_ord" class="calculated-value">0</span></td>
-                    <td><span id="preparacion_ext" class="calculated-value">0</span></td>
+                    <td>
+                        <span id="preparacion_ord" class="calculated-value">0</span>
+                        <span id="comp_expr_ord" class="compensation-expression"></span>
+                    </td>
+                    <td>
+                        <span id="preparacion_ext" class="calculated-value">0</span>
+                        <span id="comp_expr_ext" class="compensation-expression"></span>
+                    </td>
                 </tr>
                 <tr>
                     <td class="activity-label">Investigación</td>
@@ -52,20 +57,15 @@ title: Calculadoras Académicas
                     <td><input type="number" id="gestion_ord" min="0" step="0.5" onchange="calculateAll()"></td>
                     <td><input type="number" id="gestion_ext" min="0" step="0.5" onchange="calculateAll()"></td>
                 </tr>
-                <tr class="total-row">
-                    <td class="activity-label"><strong>Total</strong></td>
-                    <td><span id="total_ord" class="total-value">0</span></td>
-                    <td><span id="total_ext" class="total-value">0</span></td>
-                </tr>
-                <tr class="compensation-row">
-                    <td class="activity-label">Compensación</td>
-                    <td><span id="compensacion_ord" class="calculated-value">0</span></td>
-                    <td><span id="compensacion_ext" class="calculated-value">0</span></td>
-                </tr>
                 <tr class="final-total-row">
-                    <td class="activity-label"><strong>Total compensado</strong></td>
+                    <td class="activity-label"><strong>Total</strong></td>
                     <td><span id="total_compensado_ord" class="total-value">0</span></td>
                     <td><span id="total_compensado_ext" class="total-value">0</span></td>
+                </tr>
+                <tr class="compensation-row">
+                    <td class="activity-label">Horas compensadas</td>
+                    <td><span id="compensacion_ord" class="calculated-value">0</span></td>
+                    <td><span id="compensacion_ext" class="calculated-value">0</span></td>
                 </tr>
             </tbody>
         </table>
@@ -77,8 +77,9 @@ title: Calculadoras Académicas
             <li>Ingrese los valores en los campos editables (fondo blanco).</li>
             <li>Los campos calculados (fondo gris) se actualizarán automáticamente.</li>
             <li>En «Gestión» se debe incluir todas las actividades restantes.</li>
-            <li><strong>Período Extraordinario:</strong> Agosto - Septiembre</li>
-            <li><strong>Período Ordinario:</strong> Octubre - Enero</li>
+            <li>Ingresar las horas de gestion de ambos periodos de forma manual.</li>
+            <li><strong>Período Extraordinario:</strong> Agosto - Septiembre.</li>
+            <li><strong>Período Ordinario:</strong> Octubre - Enero.</li>
         </ul>
     </div>
 </div>

@@ -88,7 +88,10 @@
     background-color: rgba(227, 242, 253, 0.3); 
     border-top: 2px solid var(--primary-color);
 }
-.compensation-row { background-color: rgba(255, 243, 224, 0.3); }
+.compensation-row { 
+    background-color: rgba(255, 243, 224, 0.3);
+    font-size: 0.75em;
+}
 .final-total-row {
     background-color: rgba(227, 242, 253, 0.5);
     border-top: 2px solid var(--primary-color);
@@ -125,6 +128,20 @@
     background-color: var(--total-bg);
     font-weight: 600;
     color: var(--primary-color);
+}
+
+/* Expresiones de compensación */
+.compensation-expression {
+    display: inline-block;
+    font-size: 0.85em;
+    color: #666;
+    font-style: italic;
+    margin-left: 6px;
+    opacity: 0.8;
+}
+
+.compensation-expression:empty {
+    display: none;
 }
 
 /* Instrucciones */

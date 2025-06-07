@@ -16,25 +16,41 @@ function calculateAll() {
 
     // Para extraordinario, investigación y vinculación son iguales al ordinario
     const investigacion_ext = investigacion_ord;
-    const vinculacion_ext = vinculacion_ord;
-
-    // Calcular totales
+    const vinculacion_ext = vinculacion_ord;    // Calcular totales
     const total_ord = clases_1_1_ord + clases_1_05_ord + preparacion_ord + investigacion_ord + vinculacion_ord + gestion_ord;
     const total_ext = clases_1_1_ext + clases_1_05_ext + preparacion_ext + investigacion_ext + vinculacion_ext + gestion_ext;
     
     // Calcular compensación
     const compensacion_ord = Math.max(0, total_ord - 40);
-    const compensacion_ext = total_ord > 40 ? (total_ord - 40) * (20 / 6) : 0;
+    const compensacion_ext = total_ord > 40 ? (total_ord - 40) * (20 / 6) : 0;    // Calcular totales con preparación compensada
+    const preparacion_final_ord = compensacion_ord > 0 ? preparacion_ord - compensacion_ord : preparacion_ord;
+    const preparacion_final_ext = compensacion_ext > 0 ? preparacion_ext + compensacion_ext : preparacion_ext;
+    
+    const total_compensado_ord = clases_1_1_ord + clases_1_05_ord + preparacion_final_ord + investigacion_ord + vinculacion_ord + gestion_ord;
+    const total_compensado_ext = clases_1_1_ext + clases_1_05_ext + preparacion_final_ext + investigacion_ext + vinculacion_ext + gestion_ext;
 
-    // Total compensado: ordinario = total - compensación, extraordinario = total + compensación
-    const total_compensado_ord = total_ord - compensacion_ord;
-    const total_compensado_ext = total_ext + compensacion_ext;    // Actualizar elementos en la página
-    updateElement('preparacion_ord', preparacion_ord);
-    updateElement('preparacion_ext', preparacion_ext);
+    // Actualizar elementos en la página
     updateElement('investigacion_ext', investigacion_ext);
-    updateElement('vinculacion_ext', vinculacion_ext);
-    updateElement('total_ord', total_ord);
-    updateElement('total_ext', total_ext);
+    updateElement('vinculacion_ext', vinculacion_ext);    // Actualizar las expresiones de compensación junto a preparación
+    const compExprOrd = document.getElementById('comp_expr_ord');
+    const compExprExt = document.getElementById('comp_expr_ext');
+    
+    // Siempre mostrar el valor final de preparación en el elemento principal
+    updateElement('preparacion_ord', preparacion_final_ord);
+    updateElement('preparacion_ext', preparacion_final_ext);
+    
+    // Mostrar la operación de compensación como información adicional
+    if (compensacion_ord > 0) {
+        compExprOrd.textContent = "(" + formatNumber(preparacion_ord) + " - " + formatNumber(compensacion_ord) + ")";
+    } else {
+        compExprOrd.textContent = "";
+    }
+    
+    if (compensacion_ext > 0) {
+        compExprExt.textContent = "(" + formatNumber(preparacion_ext) + " + " + formatNumber(compensacion_ext) + ")";
+    } else {
+        compExprExt.textContent = "";
+    }
     
     // Mostrar compensación con signo negativo para ordinario y positivo para extraordinario
     if (compensacion_ord > 0) {
@@ -90,42 +106,27 @@ function formatNumber(value) {
 
 // Función para actualizar colores de las filas según los valores
 function updateRowColors() {
-    const totalOrd = parseFloat(document.getElementById('total_ord').textContent) || 0;
-    const totalExt = parseFloat(document.getElementById('total_ext').textContent) || 0;
-    const totalCompOrd = parseFloat(document.getElementById('total_compensado_ord').textContent) || 0;
-    const totalCompExt = parseFloat(document.getElementById('total_compensado_ext').textContent) || 0;
-      // Aplicar estilos especiales si los totales superan ciertos umbrales
-    const totalRow = document.querySelector('.total-row');
-    const finalTotalRow = document.querySelector('.final-total-row');
-    
-    // Cambiar color de fondo de las filas según el total ordinario
-    if (totalOrd > 40) {
-        totalRow.style.backgroundColor = 'rgba(255, 193, 7, 0.2)';
-        finalTotalRow.style.backgroundColor = 'rgba(255, 193, 7, 0.3)';
-    } else {
-        totalRow.style.backgroundColor = 'rgba(227, 242, 253, 0.3)';
-        finalTotalRow.style.backgroundColor = 'rgba(227, 242, 253, 0.5)';
-    }
+    const totalOrd = parseFloat(document.getElementById('total_compensado_ord').textContent) || 0;
+    const totalExt = parseFloat(document.getElementById('total_compensado_ext').textContent) || 0;
     
     // Verificar si los totales compensados están fuera del rango 39.5 - 40.5
-    const isCompOrdOutOfRange = totalCompOrd < 39.5 || totalCompOrd > 40.5;
-    const isCompExtOutOfRange = totalCompExt < 39.5 || totalCompExt > 40.5;
+    const isCompOrdOutOfRange = totalOrd < 39.5 || totalOrd > 40.5;
+    const isCompExtOutOfRange = totalExt < 39.5 || totalExt > 40.5;
     
     // Elementos de totales compensados
     const totalCompOrdElement = document.getElementById('total_compensado_ord');
     const totalCompExtElement = document.getElementById('total_compensado_ext');
     
-    // Elementos de totales normales
-    const totalOrdElement = document.getElementById('total_ord');
-    const totalExtElement = document.getElementById('total_ext');
+    // Cambiar color de fondo de la fila final según el total ordinario
+    const finalTotalRow = document.querySelector('.final-total-row');
     
-    // Resetear los estilos de los totales normales (azul por defecto)
-    totalOrdElement.style.color = '#134383';
-    totalOrdElement.style.fontWeight = '600';
-    totalExtElement.style.color = '#134383';
-    totalExtElement.style.fontWeight = '600';
+    if (isCompOrdOutOfRange) {
+        finalTotalRow.style.backgroundColor = 'rgba(255, 193, 7, 0.2)';
+    } else {
+        finalTotalRow.style.backgroundColor = 'rgba(227, 242, 253, 0.5)';
+    }
     
-    // Aplicar color solo a columna ordinaria
+    // Aplicar color a totales ordinarios
     if (isCompOrdOutOfRange) {
         // Fuera de rango: rojo
         totalCompOrdElement.style.color = '#dc3545';
@@ -136,7 +137,7 @@ function updateRowColors() {
         totalCompOrdElement.style.fontWeight = '600';
     }
     
-    // Aplicar color solo a columna extraordinaria
+    // Aplicar color a totales extraordinarios
     if (isCompExtOutOfRange) {
         // Fuera de rango: rojo
         totalCompExtElement.style.color = '#dc3545';
